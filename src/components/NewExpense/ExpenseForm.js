@@ -25,13 +25,13 @@ const ExpenseForm = props => {
 
         const newExpense = {
             title: userInputs.inputTitle,
-            amount: userInputs.inputAmount,
+            amount: parseInt(userInputs.inputAmount),
             date: new Date(userInputs.inputDate)
         };
 
         props.onNewExpenseSubmit(newExpense)
 
-        setUserInputs(prevState => {
+        setUserInputs(() => {
             return {
                 inputTitle: '',
                 inputAmount: '',

@@ -1,7 +1,9 @@
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
+import {useState} from "react";
+import {collect} from "collect.js";
 
-const expenses = [
+const dummyExpenses = [
     {
         id: 'e1',
         date: new Date(2022, 3, 27),
@@ -16,7 +18,7 @@ const expenses = [
     },
     {
         id: 'e3',
-        date: new Date(2022, 5, 12),
+        date: new Date(2021, 5, 12),
         title: "Car EMI",
         amount: 4289
     },
@@ -26,17 +28,27 @@ const expenses = [
         title: "Shiva Trilogy - The Secrets of Meluha",
         amount: 279
     },
+    {
+        id: 'e5',
+        date: new Date(2021, 10, 14),
+        title: "LPG - Refill",
+        amount: 1060
+    },
 ]
 
-const addToExpensesHandler = expense => {
-    console.log(expense, expenses)
-}
-
 const App = () => {
+    const [expenses, setExpenses] = useState(dummyExpenses)
+
+    const addToExpensesHandler = expense => {
+        setExpenses(prevState => {
+            return [expense, ...prevState]
+        })
+    }
+
     return (
         <div>
             <NewExpense onAddNewExpense={addToExpensesHandler}/>
-            <Expenses className="expenses" list={expenses}/>
+            <Expenses className="expenses" list={collect(expenses).sortByDesc('date')}/>
         </div>
     );
 }
