@@ -5,6 +5,7 @@ import {useState} from "react";
 const NewExpense = props => {
     const saveExpenseDataHandler = (newExpense) => {
         props.onAddNewExpense({...newExpense, id: Math.round(Math.random() * 1000)});
+        toggleFormView() // Hide form with form submission
     }
 
     const [formOpen, setFormOpen] = useState(false);
